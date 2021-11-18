@@ -1,0 +1,81 @@
+% ################################################
+% This file includes all packages
+% Do not inlcude additional packages elsewhere!
+% ################################################
+
+% ----------------------------------------------------------------------------------------------------------------------
+% Basic encoding, languages and the scrhack package
+%
+% Due to compability problems between the KOMA package and some old packages (like listings, float etc.) 
+% Mr. Kohm (the author of KOMA) wrote the scrhack package to overcome this issue. 
+% For more information on this topic see chapter 16 of the KOMA documentation.
+% It is recomanded to load the scrhack package at an early state and before other fancy 
+% packages!
+% ----------------------------------------------------------------------------------------------------------------------
+\usepackage[T1]{fontenc}                        % use 256 glyph encoding (standard for western european languages)
+\usepackage[ngerman,english]{babel}             % load language package; default language is the last language listed, 
+												% the other given languages are optional 		
+\usepackage{scrhack}							% needed for older packages to work smoothly with KOMA (e.g. listings)										
+
+
+% ----------------------------------------------------------------------------------------------------------------------
+% Page layout packages
+% ----------------------------------------------------------------------------------------------------------------------	
+\usepackage{scrlayer-scrpage}					% customize header, footer etc. This package replaces fancyhdr-package
+												% and works in combination with the KOMA-script document classes
+\usepackage{geometry}							% define new page geometries
+
+
+% ----------------------------------------------------------------------------------------------------------------------
+% Bibliography, glossary, acronyms packages
+% ----------------------------------------------------------------------------------------------------------------------
+\usepackage[style = numeric]{biblatex}			% for referencing and list of referenced, we use biber 
+\usepackage{csquotes}							% loading this package is recommended if you use biblatex package
+\usepackage{acro}								% enables automated abbrevations and acronyms listing
+
+
+% ----------------------------------------------------------------------------------------------------------------------
+% All other packages for the fancy stuff
+% ----------------------------------------------------------------------------------------------------------------------
+\usepackage{graphicx}                           % make use of color, graphics, etc...	
+\usepackage{xcolor}                             % you can use and define RGB colors
+\usepackage{scrhack}							% needed for the listings package
+\usepackage{listings}							% text which looks like software code
+\usepackage{lastpage}							 % includes internal page counter
+%\usepackage{amssymb}                            % use all available math symbols
+%\usepackage{trfsigns}	                         % use math transformation signs, e.g. the Laplace transformation sign
+%\usepackage{mathtools}							 % for math environments equation, split, align, multiline etc.
+%\usepackage{enumerate}                          % for enumeration, e.g. equations
+\usepackage[figure,table]{totalcount}			% counter for figures and tables, accessible through \totalfigures and \totaltables commands
+\usepackage{totcount}							% for counting references
+\usepackage{float}								% for working with float values, e.g. \begin{figure}[H]
+%\usepackage{wasysym}                            % for the use of checkboxes (\Box, \XBox)
+\usepackage{tikz}								% for tikz
+\usepackage{tikzscale} 							% for tikz
+\usepackage{pgfplots}                           % for generating high quality plots (very nice!)
+%\usepackage{longtable}							 % for tables
+%\usepackage{threeparttable}					 % for tables
+%\usepackage{multirow}							 % for tables
+%\usepackage{tabularx}							 % for tables
+%\usepackage{booktabs}							 % for tables
+%\usepackage{colortbl}							 % for tables
+%\usepackage{multicol}							 % for tables
+%\usepackage[ruled,vlined,linesnumbered,algochapter]{algorithm2e}
+
+			
+% ----------------------------------------------------------------------------------------------------------------------
+% Optional packages 
+%
+% These packages are not neccesary for the document's content but offer some helpful
+% features.
+% ----------------------------------------------------------------------------------------------------------------------								
+\usepackage{blindtext}							% enables blindtext functioanlity
+\usepackage{layout}								% enables \layout command (prints the page layout picture)
+
+
+% ----------------------------------------------------------------------------------------------------------------------
+% Hyperref packages 
+% Add these two packages always at the end. 
+% ----------------------------------------------------------------------------------------------------------------------
+\usepackage{hyperref}							% creates links and refs inside your PDF document
+\usepackage[capitalise]{cleveref}       		% must be loaded after hyperref

@@ -1,0 +1,182 @@
+% ################################################
+% This file is for all the fancy tex stuff
+% Here, we define the document's formatting!
+% ################################################
+
+
+% ----------------------------------------------------------------------------------------------------------------------
+% Set some other KOMA options
+% ----------------------------------------------------------------------------------------------------------------------
+\KOMAoption{parskip}{full-}		% no indent at the beginning of new paragraphs
+
+
+% ----------------------------------------------------------------------------------------------------------------------
+% Set default paths for including images
+% ----------------------------------------------------------------------------------------------------------------------
+\graphicspath{{images/}}
+
+
+% ----------------------------------------------------------------------------------------------------------------------
+% Set page dimensions, see also geometry-package documentation (online)
+%
+% Here, we set the margins between the total text body and the paper edges for onesieded style!
+% A twosided style requires a different setup.
+% ----------------------------------------------------------------------------------------------------------------------
+\geometry{
+	left=2.5cm,
+	right=2.5cm,
+	top=4.0cm,
+	bottom=3.0cm,
+	%includeheadfoot=true	% header and footer are part of the total text body
+}
+% for twosided style
+%\geometry{
+%	inner=2.5cm,
+%	outer=2.5cm,
+%	top=4.0cm,
+%	bottom=3.0cm
+%}
+
+
+% ----------------------------------------------------------------------------------------------------------------------
+% Header & Footer
+%
+% See the KOMA doc chapter 5 and 18 for more information on how to set custom header and footers 
+% which differ from scrheadings.
+
+% Since we are working with the KOMA package due to more flexiability, do not use fancyhdr 
+% commands here.
+%
+% This sction presents code offering a custom header and footer design where chapter pages have the 
+% same header/footer content as standard pages. It is called the "AllPage" design.
+% Besides, there is the scrheadings design enlarged by chapter titles in the top left corner.
+%
+% Some information about putting images and grphics into the header:
+% It is difficult to use different head and foot page geometires in one document. Say, you want a diffrent 
+% header with bigger images on each chapter page, for example. Maybe it is realisable
+% with the manual use of \newgeometry{options} and  \restoregeometry but that would be a 
+% ugly solution. I recommend using a plain or the standard scrheadings page style and designing this special
+% content with the tikz environment. However, see the KOMA doc chapter 18 for defining totally customized 
+% page styles.    
+% ----------------------------------------------------------------------------------------------------------------------
+\newpairofpagestyles{AllPage}{
+	\clearpairofpagestyles
+	\KOMAoptions{
+		headsepline=true,			% print header line on standard page  
+		footsepline=true,			% print footer line on standard page
+		plainheadsepline=true,      % print header line on plain page
+		plainfootsepline=true,		% print footer line on plain page
+		autoenlargeheadfoot=true    % adjust headheight/footheight automatically
+	}
+	% same font as in the document
+	\setkomafont{pageheadfoot}{\normalsize}
+	% head content (see also metadata file)	
+	\chead[{\HeaderTextCenter}]{ \HeaderTextCenter }
+	\ohead[{\includegraphics[scale=0.04]{BavarianGitLogo} \\ \HeaderTextRight}]{\includegraphics[scale=0.04]{BavarianGitLogo} \\ \HeaderTextRight}
+	\ihead[{\HeaderTextLeft}]{\HeaderTextLeft}
+	% foot content
+	% here, \phantom inserts a whitespace between the current page number and "of"
+	\ofoot[\FooterText]{\FooterText}
+}
+
+% Enlarged scrheadings header/footer design
+% These commands are ignored if the AllPage style is choosen in the main document
+\clearpairofpagestyles
+\KOMAoptions{
+	automark,
+	autooneside,			% to use \automark in onesided documents 
+	headsepline,			% print header line on standard page  
+	footsepline,			% print footer line on standard page
+	plainfootsepline,		% print footer line on plain page
+	autoenlargeheadfoot     % adjust headheight/footheight automatically
+}
+% The vertical space was adopted manually by trial end error
+% and compared with a header without image on the right side.
+%\ihead{\headmark}
+\ihead{\vspace{-1.55cm}\headmark}
+\ohead{\includegraphics[scale=0.06]{BavarianGitLogo}}
+\ofoot[\FooterText]{\FooterText}
+
+
+% ----------------------------------------------------------------------------------------------------------------------
+% Termianal Style listing 
+%
+% Seems to be deprecated in combination with KOMA
+% ----------------------------------------------------------------------------------------------------------------------
+\lstdefinestyle{Terminal}{
+	backgroundcolor=\color{lavendergray},   
+	stringstyle=\color{codepurple},
+	mathescape = true,
+	basicstyle=\ttfamily\small,
+	breakatwhitespace=false,         
+	breaklines=true,               
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+
+
+% ----------------------------------------------------------------------------------------------------------------------
+% Set bibliography  reference counter
+%
+% You can access the counter value with 
+% ----------------------------------------------------------------------------------------------------------------------
+\newtotcounter{citenum}
+\AtEveryBibitem{\stepcounter{citenum}}
+
+
+% ----------------------------------------------------------------------------------------------------------------------
+% Tikz packages, PGF tools, tikz libraries and externalize tikz
+% pictures (advanced use case)
+%
+% If the document does not contain any tikz-pictures leave the following packagey uncommented.
+% ----------------------------------------------------------------------------------------------------------------------
+\usetikzlibrary{shapes, 
+	shapes.geometric,
+	arrows, 
+	angles,
+	arrows.meta, 
+	patterns,
+	shapes.symbols, 
+	positioning, 
+	shadows, 
+	trees,
+	calc,
+	chains,
+	decorations,
+	decorations.pathreplacing,
+	decorations.pathmorphing,
+	decorations.text,
+	bending,
+	matrix,
+	external
+}
+\pgfdeclarelayer{marx}
+\pgfsetlayers{main,marx} 
+\pgfplotsset{compat=1.16}
+\usepgfplotslibrary{external} 
+\tikzexternalize[prefix=externalizeFigures/]
+
+
+% ----------------------------------------------------------------------------------------------------------------------
+% User defined Macros
+% ----------------------------------------------------------------------------------------------------------------------
+
+% Macro for using the dollar sign inside a listing environment
+\newcommand{\dollar}{\mbox{\textdollar}}
+
+% Macro for creating the yellow user story box
+\newcommand{\usrStory}[1]{\colorbox{lemonchiffon}{\parbox[t][][c]{15.792cm}{\textbf{User Story}: \textit{"{#1}"}}}}
+
+
+
+
+
+
+
+
+

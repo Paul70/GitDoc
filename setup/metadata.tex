@@ -1,0 +1,123 @@
+% ----------------------------------------------------------------------------------------------------------------------
+% Edit all document specific metadata 
+% ----------------------------------------------------------------------------------------------------------------------
+\def\documentAuthorName{Heidenreich}          				 % set the document's author name
+\def\documentAuthorPreName{Paul}          				     % set the document's author name
+
+
+
+
+% ----------------------------------------------------------------------------------------------------------------------
+% Define the document stucture
+%
+% You can omit the listed document features below by simply commenting out the 
+% \has... line, for example to create a documetn without a list of figures do
+% "%\hasListOfFigurestrue"
+% ----------------------------------------------------------------------------------------------------------------------
+\newif\ifhasPreface				
+\hasPrefacetrue						% activate this line to add a preface
+
+\newif\ifhasAbstract				
+\hasAbstracttrue					% activate this line to add an abstract
+
+\newif\ifhasTableOfContents			
+\hasTableOfContentstrue				% activate this line to add a TOC
+
+\newif\ifhasListOfFigures	
+\hasListOfFigurestrue				% activate this line to add list of figures 
+
+\newif\ifhasListOfTables	
+\hasListOfTablestrue				% activate this line to add list of tables
+
+\newif\ifhasAcronyms					
+\hasAcronymstrue					% activate this line to add list of acronyms
+
+\newif\ifhasSymbols	
+\hasSymbolstrue					    % activate this line to add list of symbols 
+
+\newif\ifhasReferences	
+\hasReferencestrue					% activate this line to add list of refrences
+
+
+% ----------------------------------------------------------------------------------------------------------------------
+% Set the language
+%
+% The default language is English, if you want to write your document in German,
+% comment in the "\Germantrue" flag.
+% ----------------------------------------------------------------------------------------------------------------------
+\newif\ifGerman
+%\Germantrue
+
+
+% ----------------------------------------------------------------------------------------------------------------------
+% Set your bibliography files (the bibtex files)  
+% ----------------------------------------------------------------------------------------------------------------------
+\addbibresource{bibtex/Programming.bib}
+\addbibresource{bibtex/Maths_And_Electronics.bib}
+
+
+% ----------------------------------------------------------------------------------------------------------------------
+% Comment the following in to have Fig. and Tab. instead of Figure and Table as figure/table captions introduction 
+% ----------------------------------------------------------------------------------------------------------------------
+\addto\captionsenglish{\renewcommand{\figurename}{Fig.}}
+\addto\captionsenglish{\renewcommand{\tablename}{Tab.}}
+
+\ifGerman
+	\addto\captionsngerman{\renewcommand{\figurename}{Abb.}}
+	\addto\captionsngerman{\renewcommand{\tablename}{Tab.}}
+\fi
+
+
+% ----------------------------------------------------------------------------------------------------------------------
+% Edit all general global document metadata 
+% ----------------------------------------------------------------------------------------------------------------------
+
+% English header and footer
+\def\HeaderTextCenter{{\normalsize first line normal size} \\ {\small second line small size} \\ {\footnotesize third line footnote size}}
+\def\HeaderTextRight{{\footnotesize line footnote size}}
+\def\HeaderTextLeft{{\normalsize first line normal size} \\ {\small second line small size} \\ {\footnotesize third line footnote size}}
+\def\FooterText{Page \pagemark \phantom{ }of \pageref{LastPage}}
+
+% German header and footer
+\ifGerman
+	\def\HeaderTextCenter{{\normalsize Erste Zeile Normal Size} \\ {\small Zweite Zeile Small Size} \\ {\footnotesize Dritte Zeile Footnote Size}}
+	\def\HeaderTextRight{{\footnotesize Erste Zeile footnote size}}
+	\def\HeaderTextLeft{{\normalsize Erste Zeile line normal size} \\ {\small Zweite Zeile Small Size} \\ {\footnotesize Dritte Zeile Footnote Size}}
+	\def\FooterText{Seite \pagemark \phantom{ }von \pageref{LastPage}}
+\fi
+
+% English descriptions and designations
+\def\nameCaAbstract{Abstract}
+\def\nameCaAcronyms{Abbreviations and Acronyms}
+\def\nameCaReferences{References}
+\def\nameCaPreface{Preface}
+\def\nameCaContents{Contents}
+\def\nameLoFigures{List of Figures}
+\def\nameLoTables{List of Tables}
+\def\nameCaSymbols{Symbols and Indices}
+
+% German descriptions and designations
+\ifGerman
+	\def\nameCaAbstract{Zusammenfassung}
+	\def\nameCaAcronyms{Abkürzungen und Acronyme}
+	\def\nameCaReferences{Literaturverzeichnis}
+	\def\nameCaPreface{Vorwort}
+	\def\nameCaContents{Inhaltsverzeichnis}
+	\def\nameLoFigures{Abbildungsverzeichnis}
+	\def\nameLoTables{Tabellenverzeichnis}
+	\def\nameCaSymbols{Symbole und Indizes}
+\fi
+
+
+
+% ----------------------------------------------------------------------------------------------------------------------
+% Colors used in this document
+%
+% There is an excellent web page where you can find RGB color definitions:
+%	http://latexcolor.com/
+% ----------------------------------------------------------------------------------------------------------------------
+\definecolor{lavenderpink}{rgb}{0.98, 0.68, 0.82}
+\definecolor{sunset}{rgb}{0.98, 0.84, 0.65}
+\definecolor{lemonchiffon}{rgb}{1.0, 0.98, 0.8}
+\definecolor{coolgrey}{rgb}{0.55, 0.57, 0.67}
+\definecolor{lavendergray}{rgb}{0.77, 0.76, 0.82}

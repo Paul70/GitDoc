@@ -1,0 +1,105 @@
+% ----------------------------------------------------------------------------------------------------------------------
+% Add title page
+% ----------------------------------------------------------------------------------------------------------------------
+\input{auxfiles/titlepage}
+
+
+% ----------------------------------------------------------------------------------------------------------------------
+% Optionally add preface
+% ----------------------------------------------------------------------------------------------------------------------
+\ifhasAcronyms
+	\chapter*{\nameCaPreface}
+	\phantomsection % we need the phantomsection in order to get hyperref work correctly.
+	\addcontentsline{toc}{chapter}{\nameCaPreface}
+	\label{sc:preface}
+	\ifGerman
+		\input{auxfiles/prefaceDE}   % load preface german
+	\else 
+		\input{auxfiles/prefaceEN}	% load preface english
+	\fi
+	\clearpage % this command is important to get the right page numbers in the table of contents!
+\fi
+
+
+% ----------------------------------------------------------------------------------------------------------------------
+% Optionally add abstract
+% ----------------------------------------------------------------------------------------------------------------------
+\ifhasAcronyms
+	\chapter*{\nameCaAbstract}
+	\phantomsection
+	\addcontentsline{toc}{chapter}{\nameCaAbstract}
+	\label{sc:abstract}
+	\ifGerman
+		\input{auxfiles/AbstractDE}   % load abstract german
+	\else 
+		\input{auxfiles/AbstractEN}	  % load abstract english
+	\fi
+	\clearpage 
+\fi
+
+
+% ----------------------------------------------------------------------------------------------------------------------
+% Optionally add table of contents
+% ----------------------------------------------------------------------------------------------------------------------
+\ifhasTableOfContents
+	\phantomsection
+	\pdfbookmark[0]{\contentsname}{toc}
+	\addcontentsline{toc}{chapter}{\nameCaContents}	
+	\renewcommand{\contentsname}{\nameCaContents}
+	\tableofcontents
+\fi
+
+
+% ----------------------------------------------------------------------------------------------------------------------
+% Optionally add list of figures
+% ----------------------------------------------------------------------------------------------------------------------
+\ifhasListOfFigures
+	\phantomsection
+	\renewcommand{\listfigurename}{\nameLoFigures}
+	\listoffigures
+	\addcontentsline{toc}{chapter}{\nameLoFigures}
+	\clearpage
+\fi
+
+
+% ----------------------------------------------------------------------------------------------------------------------
+% Optionally add list of tables
+% ----------------------------------------------------------------------------------------------------------------------
+\ifhasListOfTables
+	\phantomsection
+	\renewcommand{\listtablename}{\nameLoTables}
+	\listoftables
+	\addcontentsline{toc}{chapter}{\nameLoTables}
+	\clearpage
+\fi
+
+
+% ----------------------------------------------------------------------------------------------------------------------
+% Optionally add list of symbols
+% ----------------------------------------------------------------------------------------------------------------------
+\ifhasSymbols
+	\chapter*{\nameCaSymbols}
+	\phantomsection
+	\addcontentsline{toc}{chapter}{\nameCaSymbols}
+	\label{sc:symbols}
+	\ifGerman
+		\input{auxfiles/symbolsDE}    % load abstract german
+	\else 
+		\input{auxfiles/symbolsEN}	  % load abstract english
+	\fi
+	\clearpage 
+\fi	
+
+
+% ----------------------------------------------------------------------------------------------------------------------
+% Optionally add lists of abbreviations and acroyms
+% ----------------------------------------------------------------------------------------------------------------------
+\ifhasAcronyms
+	\chapter*{\nameCaAcronyms}
+	\phantomsection
+	\addcontentsline{toc}{chapter}{\nameCaAcronyms}
+	\label{sc:abbreviationsAndAcronyms}
+	\printacronyms[name = {}]
+\fi
+
+

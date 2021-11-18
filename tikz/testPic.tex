@@ -1,0 +1,17 @@
+\newcommand*{\xMin}{0}
+\newcommand*{\xMax}{14}
+\newcommand*{\yMin}{0}
+\newcommand*{\yMax}{6}
+\begin{tikzpicture}
+	 \foreach \i in {\xMin,...,\xMax} {
+		\draw [very thin,gray] (\i,\yMin) -- (\i,5)  node [below] at (\i,\yMin) {$\i$};
+	}
+	\foreach \i in {\yMin,...,5
+	} {
+		\draw [very thin,gray] (\xMin,\i) -- (\xMax,\i) node [left] at (\xMin,\i) {$\i$};
+	}
+	
+	%\draw [step=1.0,blue, very thick] (0.5,0.5) grid (1.5,1.5);
+	%\draw [very thick, brown, step=1.0cm,xshift=-0.5cm, yshift=-0.5cm] (0.5,0.5) grid +(1.5,1.5);
+	
+\end{tikzpicture}

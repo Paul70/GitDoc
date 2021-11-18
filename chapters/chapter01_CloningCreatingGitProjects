@@ -1,0 +1,11 @@
+\chapter{Cloning and Creating Git Projects}
+\label{chapter:1}
+
+This chapter describes the workaround to clone git repositories from a remote server or network as well as creating 
+%a brand new local git project on your machine. \ac{EG} when you start your own new software project. 
+Additionally, the proceeding of creating a remote repository of 
+your newly created local git project on GitHub is presented.
+
+
+
+

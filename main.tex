@@ -1,0 +1,29 @@
+% Basic document definitions
+% - a4paper:     use DIN A4 paper format
+% - 11pt:        letter height is 11pt 
+% - fleqn:       math mode equations are left aligned 
+\documentclass[a4paper, 11pt, fleqn]{scrreprt}
+
+\input{setup/packages}                  		% include all neccessary packages
+\input{setup/metadata} 							% include the document's metadata file
+\input{setup/settings}  						% load all the settings
+\ifhasAcronyms
+	\ifGerman
+		\input{auxfiles/abbrevationsAcronymsDE} % load list of abbrevations german
+	\else 
+		\input{auxfiles/abbrevationsAcronymsEN}	% load list of abbrevations english
+	\fi
+\fi
+
+
+\begin{document}
+	\ifGerman
+		\selectlanguage{ngerman}
+	\fi	
+	\pagestyle{scrheadings}	
+	%\pagestyle{AllPage}
+	\input{auxfiles/frontmatter}				
+	\input{chapters/chapter01_Cloning}
+	\input{chapters/chapter02_GitPipe}
+	\input{auxfiles/backmatter}
+\end{document}

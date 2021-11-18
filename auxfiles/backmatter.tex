@@ -1,0 +1,10 @@
+% ----------------------------------------------------------------------------------------------------------------------
+% Appendices and back matter
+% ----------------------------------------------------------------------------------------------------------------------
+
+\appendix
+\ifhasReferences
+	\renewcommand{\bibname}{\nameCaReferences}
+	\printbibliography 
+	\addcontentsline{toc}{chapter}{\nameCaReferences}
+\fi

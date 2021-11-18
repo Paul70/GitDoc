@@ -1,0 +1,249 @@
+\chapter{Cloning and Creating Git Projects}
+\label{chapter:1}
+
+This chapter describes the workaround to clone git repositories from a remote server or network as well as creating 
+a brand new local git project on your machine, \ac{EG} when you start your own new software project. 
+Additionally, the proceeding of creating a remote repository of 
+your newly created local git project on GitHub is presented.
+
+
+\section{Cloning a Git Repository from Remote}
+\label{chapter:1.1}
+
+Cloning a git repository is straight forward. Open your terminal or command line and navigate to the location where 
+you want to place the project on your computer's file system. 
+\\
+Before executing the famous \textbf{git clone} command take a short breath and ask yourself: "Does this git project has 
+sub-modules and do I also want to clone them too?"
+\\ 
+If you say yes of course, then execute in your terminal/command line
+
+\lstset{style=Terminal}
+\begin{lstlisting}
+	$\dollar$ git clone --recurse-submodules <Path/URL/SSH of Git Project>
+\end{lstlisting}
+
+Otherwise, the \textbf{git clone} command simplifies to
+
+\begin{lstlisting}
+	$\dollar$ git clone <Path/URL/SSH of Git Project>
+\end{lstlisting}
+
+In case, you did not know that the project you already cloned does contain submodules or you simply forgot to clone them in a hurry,
+there is absolutely no reason to get into panic;)
+\\
+Keep clam, grab your keyboard and type 
+\begin{lstlisting}
+	$\dollar$ git submodule update --init --recursive
+\end{lstlisting}
+
+Here, the important thing to learn is to use the git way to solve problems. Do not get the idea of just deleting the newly cloned repository 
+and clone it again with the right command! 
+
+\usrStory{How do I know if the project I want to clone has any submodules integrated?}
+
+The first option is to always clone the project with the recurse flag, \ac{IE} submodules get cloned too:
+
+\begin{lstlisting}
+	$\dollar$ git clone --recurse-submodules <Path/URL/SSH>
+\end{lstlisting}
+
+The second option is to clone the main project without the recurse flag and checking for the existence of 
+any submodules afterwards by 
+
+\begin{lstlisting}
+	$\dollar$ git clone <Path/URL/SSH>
+	$\dollar$ git submodule status
+\end{lstlisting}
+
+As a result you see all submodules of the project currently missing (there is a little minus sign infront of the SHA key).
+Clone these submodules into your project repository by executing 
+
+\begin{lstlisting}
+	$\dollar$ git submodule update --init --recursive
+\end{lstlisting}
+
+
+
+
+
+
+\section{Creating a Local Git Repository inside a Project Folder}
+\label{chapter:1.2}
+
+Each new git project starts with the \textbf{git init} command. 
+
+
+\usrStory{Create a new, local git repository on your machine for the project
+			you want to start or for the one you already started, \ac{IE} you have 
+			already produced some files and want to organize your working 
+		    progress with git.}
+
+
+
+
+In this case, navigate into the directory in your file system which will contain the top level resources of your project
+or where you have saved the your work done so far. Inside this directory execute
+
+\begin{lstlisting}
+	$\dollar$ git init
+\end{lstlisting}
+
+As a result, your directory now contains a \textbf{.git} repository which contains everything needed to version your project and track your changes
+over time. Briefly said, the top level project folder now consists of two main parts:
+\begin{enumerate}
+	\item the project's actual working tree, \ac{IE} all the files, code and other work inside this folder and second,
+	\item the git repository which owns all the snapshots of your work that you put inside this folder at times (the so called commits). This is the \textbf{.git folder}
+	inside your project folder created with the \textbf{git init} command.
+\end{enumerate}
+
+Now, everything is ready to use all the other git functionality.
+
+
+
+\section{Adding a Remote Repository to an Existing Local Git Project}
+\label{chapter:1.3}
+
+
+
+\subsection{Local and Remote Git Repositories}
+\label{chapter:1.3.1}
+Before walking through this little workaround, it is advisable to recall oneself into mind the main difference between a local and remote git 
+repository.
+\\ 
+As explained in \cref{chapter:1.2} a local git repository consists of the project's working tree and the git "archive" (.git folder )recording all the development  and 
+changes made. By contrast, a remote git repository does only consist of a copy of your local git "archive" made at a time. There is no working tree inside a remote 
+git repository. However, it is possible, via \textbf{git clone}, see \cref{chapter:1.1}, to locally reproduce a working tree from this \textbf{.git} archive.
+\\
+Summarizing it all up:
+
+\textit{
+	\hspace*{1cm} Git local Repo \hspace*{0.25cm} = Working Tree + .git  \\
+	\hspace*{1.1cm} Git remote Repo = .git
+}
+
+A git remote repository, \ac{IE} a git repository with no working tree, is also called a \textbf{bare} repository.
+
+
+
+In fact, this \textbf{.git} "archive" rally consists of two main git features. There is, on the one hand 
+\begin{itemize}
+	\item the \textbf{Staging Area} or \textbf{Index} and on the other hand we have 
+	\item the \textbf{git Commit Tree}.
+\end{itemize}
+Putting it all together, a whole local git project consists of the \textbf{Working Tree} plus the git \textbf{Staging Area/Index} plus the 
+\textbf{Commit Tree}!
+\\
+In analogy to the the famous OpenGL graphics pipeline, I call these three stages the \textbf{git Pipeline}. Since data is pumped from the Working Tree over the Index
+into the Commit Tree, this comparison seems valid. \cref{chapter:2} introduces and describes the journey through the pipeline in detail. Here, the main thing to remember is, 
+that a local git project has a working tree whereas a remote one does not and the .git folder contains the Staging Area and the Commit Tree!
+
+
+\subsection{GitHub as Remote Location}
+\label{chapter:1.3.2}
+
+\usrStory{I want to crate a remote location for  my software project on GitHub 
+	(or any other Server) and connect this repository with my local 
+	one.}
+
+
+Creating a remote GitHub repository requires a GitHub account! Follow the steps below:
+
+\begin{enumerate}
+	\item Go to your GitHub homepage and click the +-icon in the navigation bar (upper right corner) and select \textbf{New Repository}.
+	\item In the Repository Name field, enter a short, descriptive name. I prefer using the project's local name and no white spaces.
+	\item Enter a brief description in the Description field. This is optional, but it helps users understand the purpose of your project when it appears in search 
+	results or in your repository list.
+	\item Keep the default Public setting for your project's visibility. If you select Private, the community won't be able to access your project repository.
+	\item Leave Initialize this repository with a \verb|README| unchecked if you have already created a \verb|README.md| file for your project.
+	\item Click the Create Repository button to create the new GitHub repository.
+\end{enumerate}
+
+Afterwards, the process continues on your local machine at the top level of your local git project folder. Check the status of the remote locations connected with 
+your project with \textbf{git remote}. It everything is as expected, add the newly created GitHub remote location to the project by using the \verb|URL| or \verb|SSH|
+address provided by the GitHub page:
+
+\begin{lstlisting}
+	$\dollar$ git remote -v
+	$\dollar$ git remote add <Name_of_your_local_Project> <URL/SSH from GitHub>
+	$\dollar$ git remote -v  //to see if the new remote location is listed
+\end{lstlisting}
+
+Finally, set the upstream branch. That is, tell your local git repository the name of the remote one (see the second item when creating a remote GitHub project) and the 
+commit-branch to which you want to push back new commits. In General, this is the master branch:
+
+\begin{lstlisting}
+	$\dollar$ git push --set-upstream <Remote_Repo_Name> 
+	<master/other_branch_name>
+\end{lstlisting}
+
+Now, you are ready to push if there are unpublished, new commits:
+\begin{lstlisting}
+	$\dollar$ git push
+\end{lstlisting}
+
+
+
+
+\subsection{An Arbitrary Server as Remote Location}
+\label{chapter:1.3.3}
+
+This is almost the same procedure as described in \cref{chapter:1.3.1}. The only difference is, that there exists probably no web page with 
+a graphical GUI interface, like GitHub, that leads one through the process of creating a remote repository. But no panic, it becomes almost simpler!
+
+
+Navigate on the server's file system or to the network drive where you want to generate your remote project destination. Then create a \textbf{bare} git remote 
+repository (\ac{IE} a repository without a working tree) with
+\begin{lstlisting}
+	$\dollar$ git init --bare
+\end{lstlisting}
+
+Afterwards follow the steps already described in \cref{chapter:1.3.1}:
+\begin{lstlisting}
+	$\dollar$ git remote -v
+	$\dollar$ git remote add <Name_of_your_local_Project> 
+	<Path_to_remotre_repo/URL_to_server>
+	$\dollar$ git remote -v
+	$\dollar$ git --set-upstream <Remote_Repo_Name> 
+	<master/other_branch_name>
+\end{lstlisting}
+
+
+\section{SSH (Secure Shell) Keys}
+\label{chapter:1.4}
+
+SSH (Secure Shell) are very practical to communicate with your remote location safely and without typing the password of your account each time you 
+communicate with your remote server. You can create a SSH key to your GitHub account (where your remote git repositories are) and connect your local git project via 
+a SSH key instead of the URL. Therefore, you have to create an SSH key on GitHub and register your local projects with this key.
+\\
+This section is not about SSH keys in detail, only how to use them in the git context. 
+
+\usrStory{I want to replace the remote URL with an SSH key.}
+
+
+First thing to do is to list the remote repository connected with your local project and in a second step, replace the URL to your remotes 
+with the SSH key
+
+\begin{lstlisting}
+	$\dollar$ git remote -v
+	$\dollar$ git remote set-url origin <ssh-key, e.g. from GitHub>
+\end{lstlisting}
+Control the result, again with
+\begin{lstlisting}
+	$\dollar$ git remote -v
+\end{lstlisting}
+Eventually, if \ac{EG} \textbf{git push} does not work without typing the password, you have to add the SSH key and activate it. In a terminal or command line type
+\begin{lstlisting}
+	$\dollar$ ssh-add
+	$\dollar$ ssh-add-l (to verify everything)
+\end{lstlisting}
+On Windows  systems make sure that the ssh-command is on your PATH variable so that it works in a CMD (for more Information on this google for "adding ssh to path variable").
+
+
+
+
+
+
+
+
+
