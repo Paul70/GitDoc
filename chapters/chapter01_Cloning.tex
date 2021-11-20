@@ -189,7 +189,7 @@ GitHub web page which started their lives independently from each other but refe
 are actually one and the same with no risk to enable a merge/pull or push request (in our case pushing local content to GitHub and pulling the README.md file created there).  
 Of course, the git community has already encountered this problem. By executing   
 \begin{lstlisting}
-	$\dollar$ git pull <Project_Name> <remote_branch> --allow-unrealted-histories
+	$\dollar$ git pull <Project_Name> <remote_branch> --allow-unrelated-histories
 \end{lstlisting}
 where the remote branch is master or main you tell git that both projects are the same and pulling the README.md file is safe. See \cite{Git2021git-merge} for more
 information.
@@ -207,11 +207,11 @@ information.
 \label{chapter:1.3.3}
 
 This is almost the same procedure as described in \cref{chapter:1.3.1}. The only difference is, that there exists probably no web page with 
-a graphical GUI interface, like GitHub, that leads one through the process of creating a remote repository. But no panic, it becomes almost simpler!
+a graphical GUI interface, like GitHub, that leads one through the process of creating a remote repository. Furthermore, there are also no 
+additional surprises because we do not have a second, identical local git repository in our web browser (see \cref{chapter:1.3.2}).
 
-
-Navigate on the server's file system or to the network drive where you want to generate your remote project destination. Then create a \textbf{bare} git remote 
-repository (\ac{IE} a repository without a working tree) with
+First, navigate on the server's file system or to the network drive where you want to generate your remote project destination. 
+Then create a \textbf{bare} git remote repository (\ac{IE} a repository without a working tree) with
 \begin{lstlisting}
 	$\dollar$ git init --bare
 \end{lstlisting}
@@ -223,12 +223,13 @@ Afterwards follow the steps already described in \cref{chapter:1.3.1}:
 	$\dollar$ git remote -v
 	$\dollar$ git --set-upstream <Remote_Repo_Name> <master/other_branch_name>
 \end{lstlisting}
+That's it, now you can push, pull or clone.
 
 
 \section{SSH (Secure Shell) Keys}
 \label{chapter:1.4}
 
-SSH (Secure Shell) are very practical to communicate with your remote location safely and without typing the password of your account each time you 
+SSH (Secure Shell) connections are very practical to communicate with your remote location safely and without typing the password of your account each time you 
 communicate with your remote server. You can create a SSH key to your GitHub account (where your remote git repositories are) and connect your local git project via 
 a SSH key instead of the URL. Therefore, you have to create an SSH key on GitHub and register your local projects with this key.
 \\
@@ -254,6 +255,9 @@ Eventually, if \ac{EG} \textbf{git push} does not work without typing the passwo
 	$\dollar$ ssh-add-l (to verify everything)
 \end{lstlisting}
 On Windows  systems make sure that the ssh-command is on your PATH variable so that it works in a CMD (for more Information on this google for "adding ssh to path variable").
+
+Due to security reasons, this procedure of adding the SSH key and authorizing the connection with your finger print key has to be repeated each time the local system 
+gets rebooted. 
 
 
 
