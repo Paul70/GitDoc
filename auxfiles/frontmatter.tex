@@ -7,7 +7,7 @@
 % ----------------------------------------------------------------------------------------------------------------------
 % Optionally add preface
 % ----------------------------------------------------------------------------------------------------------------------
-\ifhasAcronyms
+\ifhasPreface
 	\chapter*{\nameCaPreface}
 	\phantomsection % we need the phantomsection in order to get hyperref work correctly.
 	\addcontentsline{toc}{chapter}{\nameCaPreface}
@@ -24,7 +24,7 @@
 % ----------------------------------------------------------------------------------------------------------------------
 % Optionally add abstract
 % ----------------------------------------------------------------------------------------------------------------------
-\ifhasAcronyms
+\ifhasAbstract
 	\chapter*{\nameCaAbstract}
 	\phantomsection
 	\addcontentsline{toc}{chapter}{\nameCaAbstract}
