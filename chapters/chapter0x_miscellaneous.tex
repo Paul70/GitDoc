@@ -1,0 +1,29 @@
+\chapter{Miscellaneous}
+
+\section{Setting VS Code as Default Git Editor}
+
+VS Code is a very popular and handy editor. By editing git's global .config file it is possible to use VS Code as the default editor for writing 
+new more verbose commits and to use it as git's merge and diff tool. The global .config file contains all important settings configuration parameter
+like your e-mail address and your name which appears when you write a new commit, for example.
+A display of this file is possible with
+\begin{lstlisting}
+	$\dollar$ git config --global -e
+\end{lstlisting} 
+The following steps are necessary to use VS Code as the default diff tool:
+\begin{lstlisting}
+	$\dollar$ git config --global diff.tool vscode
+	$\dollar$ git config --global difftool.vscode.cmd 
+	  'code --wait --diff $\dollar$LOCAL $\dollar$REMOTE'
+\end{lstlisting}
+For using VS Code as the default merge tool execute the next two commands:
+\begin{lstlisting}
+	$\dollar$ git config --global merge.tool vscode
+	$\dollar$ git config --global difftool.vscode.cmd 'code --wait --diff $\dollar$MERGED'
+\end{lstlisting}
+Again, check your global .config file and see the changes made so for. Now your are able to use 
+VS Code as your editor of choice. To also use it as the standard commit tool set it as the global editor in general by typing 
+\begin{lstlisting}
+	$\dollar$ git config --global core.editor "code --wait"
+\end{lstlisting}
+That's it! VS Code is now your overall git editor.
+
