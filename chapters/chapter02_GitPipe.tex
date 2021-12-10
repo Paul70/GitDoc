@@ -14,12 +14,6 @@ since it is not important to understand what follows. The interested reader may 
 \\
 This chapter is not meant to give another explanation of how to create new commits. The focus lies on these three trees 
 and how you improve the maintenance and administration of the software development process with the help of Git. 
-\begin{figure}[H]
-	\centering
-	\input{tikz/testPic.tex}
-	\caption{The Git Pipeline: Working Tree, Staging Area and Commit Tree}
-	\label{fig:GitPipe}
-\end{figure}
 
  
 
@@ -43,7 +37,7 @@ Each commit is unique and accessible through its identifying SHA-1 hash key.
 
 The notion of commits is fundamental when using git. \textbf{Git is all about commits!} Especially the high level end user API of 
 git is all about creating commits, pointing to or referencing special commits, grouping commits together,
-looking inside a past commit, removing commits from your tree, restoring them etc.
+looking inside a past commit, cutting off commits from your tree, restoring them etc.
 But always remember, one single commit represents and contains your whole project at the time the commit 
 was made.
    
@@ -66,15 +60,15 @@ The term branch often implies a somehow heavyweight and complex construct as par
 tree. In fact the contrary is the case. In the context of Git, a branch is nothing more then 
 a named pointer directed on the latest commit in an directed, acyclic (sub-)graph of development
 in the commit tree. That's it! Again, a branch is only a named pointer to a commit and the 
-branch name represents a colletion of all commits with the same anchestor in the tree. However, although
+branch name represents a colletion of all commits with the same ancestor in the tree. However, although
 we speak of pointers, these branch pointers are not meant to be moved freely around in your commit tree.
-They are more like refereces and always refer to the latest commit in such an acyxlic graph.
-In the following, the term branch means the whole acyclic (sub-)graph and the term branch pointer 
+They are more like references and always refer to the latest commit in such an acyclic graph.
+In the following, branch means the whole acyclic (sub-)graph and the term branch pointer 
 means the reference to the latest commit in this branch.
-One special branch is the master or main branch.
+One special branch is the \textbf{master} or \textbf{main} branch.
 
 \subsection*{Master/Main Branch}
-The master or main branch reprents the trunk of your commit tree and is crated 
+The master or main branch represents the trunk of your commit tree and is crated 
 with the git init command. The master or main branch pointer is always directed to the latest commit added to 
 this master branch. That is, creating a new commit also moves the pointer one commit further.
 
@@ -93,16 +87,171 @@ This pointer refers to the remote master branch inside the remote .git repositor
 covers the local commit tree, the reader may consult chapter xxx for more information on remote HEAD and master
 as well as remote branching. 
 \\
-Finally, figurexxx shows a picture of the commit tree in relation with the other trees and references
-presented. It depicts the situation while adding a new commit and shows how new data gets assembled into a new commit.
+Finally, \cref{fig:GitAddCommit} shows a picture of the commit tree in relation with the other trees and references
+presented. It depicts the situation while adding a new commit and shows how new data gets assembled.
+The commit tree is highlighted in blue since we put new information up to this stage. The newly created commit C3 
+is also highlighted since it contains this new information next to everything which is inside C2 and C1.
+\begin{figure}[H]
+	\centering
+	\input{tikz/addCommit.tex}
+	\caption{Visualization of creating a new commit}
+	\label{fig:GitAddCommit}
+\end{figure}
 
+
+After being familiar with the the Working Tree, the Staging Area, the Commit Tree, the pointer Git uses and 
+the branch expression, you should read \cite{Unknown2021GitTools-Reset}. The source explains in depth the meaning 
+of Git resetxxx.
+What follows in \cref{chapter:2.2} and \cref{chapter:2.3} is a remainder of how to use git's reset and checkout commandsxxx.
+ 
 
 
 \section{Git Reset}
 \label{chapter:2.2}
 
+Effectively using Git to organize your software projects requires at least a good understanding of the Git reset xxx 
+command. After knowing how to create new commits with Git add xxx and Git commit, it is especially important to understand
+how you can revert these actions or even reset your project to a past, stable state. In other words, Git reset xxx moves the
+HEAD/master pointer to the specified commit.
+
+
+The Git reset xxx command always refers to a commit specified by the user. Git offers several ways to address commits. The most
+common one is using a commit's SHA-1 hash key. You do not have to type the whole key, the first five to six signs are enough:
+\begin{lstlisting}
+	$\dollar$ git reset <5-6 SHA1 digits> 
+\end{lstlisting}
+Another method often used is giving the position of a commit relatively to the HEAD pointer in the commit tree. For example, 
+\begin{lstlisting}
+	$\dollar$ git reset HEAD~2 
+\end{lstlisting}
+means commit C1 in \cref{fig:GitAddCommit}. Specifying no commit at all like
+\begin{lstlisting}
+	$\dollar$ git reset  
+\end{lstlisting} 
+is equivalent to 
+\begin{lstlisting}
+	$\dollar$ git reset HEAD~1 
+\end{lstlisting}
+which is the same as
+\begin{lstlisting}
+	$\dollar$ git reset HEAD~ 
+\end{lstlisting}
+Of course, these rules all apply for any other Git command requiring a commit as input argument. 
+
+
 \subsection{Three Types of Git Reset}
 \label{chapter:2.2.1}
+
+There are three different ways of moving the HEAD/master pointer using Git reset xxx:
+\begin{itemize}
+	\item a soft reset,
+	\item a mixed reset and
+	\item a hard reset.
+\end{itemize}
+
+
+\subsubsection*{Git reset --soft}
+
+A git reset --soft xxx is more or less the opposite command to git commit xxx. Resetting the Commit Tree softly
+actually cuts off the latest commit, puts the information added with this commit back into the Staging Area and moves,
+of course, the HEAD/master reference. Basically, \cref{fig:GitResetSoft} illustrates this situation  and 
+the next use case summarizes this process. Again, the stage containing the latest modifications of the Working Tree is 
+highlighted. Note, at this point, there exists no commit in the Commit Tree encapsulating theses changes.
+
+\usrStory{I want to undo the last commit and put the files back into the staging area, that is perform a soft
+reset.}
+
+According to the different ways of addressing commits, there are the following, equivalent command options:
+\begin{lstlisting}
+	$\dollar$ git reset --soft <SHA1>  // or
+	$\dollar$ git reset --soft HEAD~   // or
+	$\dollar$ git reset --soft HEAD~1  // or
+\end{lstlisting}
+This is also possible for older commits by adjusting the SHA1 hash key or relative HEAD position. A soft reset with respect 
+to commit C1 would put all uncommitted changes of C2 and C3 in the Staging Area or leave them untracked if the files were  
+newly added in C2 or C3.
+\begin{figure}[H]
+	\centering
+	\input{tikz/resetSoft.tex}
+	\caption{Visualization of Git reset --soft}
+	\label{fig:GitResetSoft}
+\end{figure}
+Note, Git reset does \textbf{not} delete any commits. In fact, Git actually never simply deletes any commits. That 
+is not how Git works. Git reset xxx just cuts the connection in the commit tree. As  \cref{fig:GitResetSoft} implies, 
+the commit C3 still exists and is accessible through Git's \textbf{reflog}. 
+Handling the reflog is the topic of xxxyyy. At this point, we want to state, that Git never simply deletes commits and
+it is fairly save to try things out.
+
+
+
+
+\subsubsection*{Git reset --mixed}
+
+Git reset mixed xxx is the second reset type. It is the same as Git reset soft plus it also un-stages the modifications.
+The mixed reset type is also the default version of Git reset, \ac{IE} 
+\begin{lstlisting}
+	$\dollar$ git reset --mixed <SHA1>  
+\end{lstlisting}
+and
+\begin{lstlisting}
+	$\dollar$ git reset <SHA1>
+\end{lstlisting}
+is the same. To sum it up, Git reset mixed moves the HEAD/master pointer to the specified commit and leaves all modifications
+un-staged in the Working Tree. It is the opposite command to Git add xxx. \Cref{fig:GitResetMixed} shows the situation after a mixed 
+reset from commit C3 to C2. Consider the following use case:
+\\
+\usrStory{I want to completely reset my project. That is switching the HEAD/master 
+pointer one (or more) commit(s) back and recreating the Working Tree stored in this commit. 
+I DO want to keep the changes made so for inside the Working Tree}
+
+
+The command for this operation is the one right above.
+
+However, the behavior is slightly different, if there are currently files staged in the index. Then, a mixed reset does not move the HEAD/master
+pointer and cut off the latest commit but simply un-stages all files, \ac{IE} only undoes Git add xxx.
+\\
+\usrStory{I want to un-stage all the files I recently put into the staging area via git add.}
+
+
+To achieve this, just type 
+\begin{lstlisting}
+	$\dollar$ git reset 
+\end{lstlisting}  
+\begin{figure}[H]
+	\centering
+	\input{tikz/resetMixed.tex}
+	\caption{Visualization of Git reset --mixed}
+	\label{fig:GitResetMixed}
+\end{figure}
+
+
+
+
+\subsubsection*{Git reset --hard}
+
+The last reset type is Git reset hard xxx. Resetting the project hard means a soft reset plus a mixed reset plus removing all
+modifications even from the Working Tree. A hard reset recreates your project as it is saved in the specified commit. After a hard reset
+your Working Tree is clean, that is all modifications get removed. Please note, that this also implies, that all modifications which have 
+not been saved in a commit are deleted. Therefore, before executing a hard reset, \textbf{ALWAYS} commit all your modifications made so far!
+\cref{fig:GitResetHard} shows this situation.
+
+\usrStory{I want to completely reset all the changes inside my Working Tree. That is switching the HEAD/master 
+	pointer one (or more) commit(s) back and recreating the Working Tree stored in this commit. I do NOT want to keep 
+	the changes made so for inside the Working Tree}
+
+\begin{lstlisting}
+	$\dollar$ git reset --hard <SHA1> 
+\end{lstlisting} 
+
+\begin{figure}[H]
+	\centering
+	\input{tikz/resetHard.tex}
+	\caption{Visualization of Git reset --hard}
+	\label{fig:GitResetHard}
+\end{figure}
+
+ 
+
 
 \subsection{Reset with Path Specification}
 \label{chapter:2.2.2}

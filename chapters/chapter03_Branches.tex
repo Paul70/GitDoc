@@ -1,0 +1,252 @@
+\chapter{All about Branches}
+\label{chapter:3}
+
+\cref{chapter:2.1} shortly introduced the notion of branches and mentioned they are more or less special, named commits.
+We have now a closer look at them and show the basic Git branch handling.
+
+Git basically offers four types of branches, \textbf{local non-tracking branches}, \textbf{local tracking branches}, \textbf{remote tracking 
+branches} and real \textbf{remote branches}.
+The first three types only deal with your local git repository as the name implies. Only the last one really lives 
+outside of your local system in a remote Git repository far, far away.
+To list all branches currently available, whether local or remote, type 
+
+\begin{lstlisting}
+	$\dollar$ git branch -a 
+\end{lstlisting}
+
+The local git repository may be connected to several other remote system, see \cref{chapter:1.3.1}. You can view the list of 
+all remote locations available via
+\begin{lstlisting}
+	$\dollar$ git remote -v 
+\end{lstlisting}
+ 
+In other words, these are the locations where you can pull from or push to. However, pulling or pushing from remote 
+requires a little bit more then only the existence and knowledge from at least one remote git repository. Git xxx also needs 
+to know if there are associated branches on the local and remote system, e.g. the local and remote master branch are connected 
+with each other (see \cref{chapter:1.3.1} till \cref{chapter:1.3.3}). Pulling and pushing only works if git knows the remote 
+counter parts of your local branches. If there are no remote branches specified for one local branch, pulling and pushing is not possible.
+
+
+
+\section{Local Branches}
+\label{chapter:3.1}
+
+
+A local branch is a branch that only you (the local user) can see. It exists only on your local machine.
+You can get a list of all local branches with
+\begin{lstlisting}
+	$\dollar$ git branch 
+\end{lstlisting}
+
+
+
+\subsection*{Local Non-Tracking Branches}
+
+All local branches which are not associated with any other branch are called \textbf{local non-tracking branches}. They are not meant to 
+be published on some remote server and are not designed to be used collaboratively. You use them for private 
+development tasks on your local machine. It is not possible to do push or pull actions on those branches.
+
+\usrStory{How do I crate a local non-tracking branch on my machine?}
+
+There are several possibilities using Git's branch, checkout or switch command:
+\begin{lstlisting}
+	$\dollar$ git branch <branch_name>
+	$\dollar$ git checkout -b <branch_name>  # also switches to the new branch
+	$\dollar$ git switch -c <branch_name>    # also switches to the new branch 
+\end{lstlisting}
+
+
+
+\subsection*{Local Tracking Branches}
+
+These branches are associated with another branch, i.e. they keep track of another branch, usually they track 
+their remote counterpart. 
+\begin{lstlisting}
+	$\dollar$ git branch -vv
+\end{lstlisting}
+shows if a local branch has an associated remote branch. For example the master branch is a local tracking  
+branch since it is mostly associated with it's remote version referred to as origin/master (or origin/main).
+\\
+Locale tracking branches are meant to work collaboratively on them. 
+
+\usrStory{How can I start a local tracking branch based on a real remote branch?}
+
+\begin{lstlisting}
+	$\dollar$ git switch origin/<remote_tracking_branch_name>
+\end{lstlisting}
+
+They \verb|origin| keyword is the name of the remote repository. If your remote repository has another name, you have to replace
+\verb|origin| with that name in the above command.  
+
+Now, pull and push operation are possible on this branch.
+
+
+
+\subsection*{Remote Tracking Branch}
+
+
+All remote tracking branches available are listed with
+\begin{lstlisting}
+	$\dollar$ git branch -r
+\end{lstlisting}
+
+A local remote tracking branch gets automatically added to your local git repository when adding a 
+local tracking branch. Think of your local remote-tracking branches as your local cache for what the real remote branches contain.
+It is an local image of the remote branch which get updated through git fetch and since 
+git fetch is part of git pull you update this image which each pull request. Actually you do not work directly with this branch as long as you just use 
+pull and push.
+\\
+Read the section xxx about fetch and merge instead of pull to understand the purpose of this institution.
+Even though all the data for a remote-tracking branch is stored locally on your machine (like a cache), it's still never called a local branch. 
+(At least, I wouldn't call it that!) It's just called a remote-tracking branch.
+
+
+
+\section{Remote Branches}
+\label{chapter:3.2}
+
+A remote branch is a branch on a remote location (in most cases origin). 
+You can view all the remote branches (that is, the branches on the remote machine), by running 
+
+\begin{lstlisting}
+	$\dollar$ git remote show origin/or_any_other_remote_location_available
+\end{lstlisting}
+
+It is not necessary to have a local counterpart of each remote branch on your local system. You can create any time
+a local remote tracking branch associated with an existing remote branch, see \cref{chapter:3.1} - local tracking branches.
+
+\section{Overview}
+\label{chapter:3.3}
+
+\cref{fig:GitBranchTypes} shows the relations between these types of branches graphically.
+\begin{figure}[H]
+	\centering
+	\input{tikz/branchTypes.tex}
+	\caption{Branch Types and their Relations}
+	\label{fig:GitBranchTypes}
+\end{figure}
+
+
+
+\section{Advanced Dealing with Branches}
+\label{chapter:3.4}
+
+
+
+\subsection{Transforming a Local Non-Tracking Branch into a Local Tracking Branch}
+\label{chapter:3.4.1}
+
+\usrStory{I have created a local (non-tracking) branch and now I want to 
+	publish this branch on the remote repository so that others can pull from and push to that 
+	branch.}
+
+In other words, you want to transform a local non-tracking branch into a local tracking branch by creating a real 
+remote branch version of your simply local branch. To achieve this, you just 
+have to set an upstream location for your local branch exactly as you did it with your master branch when setting 
+up a remote location, see \cref{chapter:1.3} (note, \verb|-u| is short for \verb|--set-upstream|):
+
+\begin{lstlisting}
+	$\dollar$ git remote -u origin <local_branch_name>
+\end{lstlisting}
+
+It is common practice to name the remote branch after your local branch.
+\\
+This operation also adds a remote tracking branch locally to your Git repository. Local tracking branches and remote
+tracking branches always come together.
+
+
+
+\subsection{Merging Branches}
+\label{chapter:3.4.2}
+
+The very basic meaning of a Git merge is to create a new commit which has two ancestors, the so called merge 
+commit:
+\begin{figure}[H]
+	\centering
+	\input{tikz/mergeCommit.tex}
+	\caption{Merge Commit}
+	\label{fig:mergeCommit}
+\end{figure}
+This orange merge commit gets created when executing Git's \verb|merge| command.
+
+
+
+\subsubsection*{Merging a local non-tracking Branch into master}
+
+\usrStory{I have finished work on a local non-tracking branch, local\_branch, and now I want 
+	to merge local\_branch into master branch.}
+
+First of all, clean up your stages by committing every modifications on both branches. Do 
+not continue unless everything is clean.
+
+Merging is always done on the branch into which you 
+want to merge the other branch. That is, for merging \verb|local_branch| into master, you have to switch 
+to the master branch. And there is another thing. Conflicts! If you are sure, that 
+there will be no conflicts, e.g. the merge operation adds only files which do not exist on master,
+a common way to go is:
+
+\begin{lstlisting}
+	$\dollar$ git switch master             # make sure you are on the master 
+																  # branch
+	$\dollar$ git pull origin master        # update your master branch 
+	$\dollar$ git merge <local_branch> 		 # create the merge commit
+	$\dollar$ git push origin master        # publish your merge operation
+\end{lstlisting}
+
+In case you expect conflicts or you are not sure, it is advisable to separate the creation of 
+a new commit form the merge process:
+\begin{lstlisting}
+	$\dollar$ git switch master    # make sure you are on the master branch 
+	$\dollar$ git pull             # update your master branch
+	$\dollar$ git merge --no-ff --no-commit <local_branch_name> # postpone commit creation
+\end{lstlisting}
+
+The option --no-ff means no fast forward and --no-commit is self explanatory.
+Checking the Git status reveals if conflicts occurred during the merge process:
+\begin{lstlisting}
+	$\dollar$ git status
+\end{lstlisting} 
+
+You can call your favorite editor (I use VS Code, see \cref{chapter:Miscellaneous.1} for how to 
+change your editor) to eventually solve the conflicts with
+\begin{lstlisting}
+	$\dollar$ git merge tool
+\end{lstlisting} 
+and afterwards commit everything:
+\begin{lstlisting}
+	$\dollar$ git commit -m"merge branch xxx into master"   # create commit  
+	$\dollar$ git push    # publish your merge operation
+\end{lstlisting}  
+
+There is still one last issue a little bit unsatisfactory. Have a look at your local commit tree and compare 
+it to the remote one as it is depicted in figure xxx after merging and publishing the merge commit:
+
+hier das Bild mit den zwei verschiedenen commit Bäumen xxx
+
+As we can clearly see, both trees differ a little bit. Especially for developers who only see the remote 
+commit tree it is hard to understand what happens in the last commit. It would be nice if we could publish all
+commits under our local development branch, too (the B commits). Therefore, we take all commits of our development branch
+and put them at the end of the master branch. In other words, we create a new base commit for our local 
+branch or we rebase all those commits, see figure xxx which illustrates this process. 
+
+hier das rebasing bild rein
+
+Putting it all together finally leads to the following command sequence:
+\begin{lstlisting}
+	$\dollar$ git checkout master
+	$\dollar$ git pull
+	$\dollar$ git checkout test
+	$\dollar$ git pull
+	$\dollar$ git rebase -i master
+	$\dollar$ git checkout master
+	$\dollar$ git merge --no-ff --no-commit <local_branch_name>                             
+\end{lstlisting}
+Again check the status with
+\begin{lstlisting}
+	$\dollar$ git status
+\end{lstlisting}
+and solve the conflicts. Then create the merge commit and publish everything:
+\begin{lstlisting}
+	$\dollar$ git commit -m"merge and rebade branch xxx into master"  
+	$\dollar$ git push 
+\end{lstlisting}  

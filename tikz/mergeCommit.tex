@@ -1,0 +1,49 @@
+\newcommand*{\xMin}{0}
+\newcommand*{\xMax}{14}
+\newcommand*{\yMin}{0}
+\newcommand*{\yMax}{9}
+
+\begin{tikzpicture}
+	% grid
+%	\foreach \i in {\xMin,...,\xMax} {
+%		\draw [very thin,gray] (\i,\yMin) -- (\i,\yMax)  node [below] at (\i,\yMin) {$\i$};
+%	}
+%	\foreach \i in {\yMin,...,\yMax} {
+%		\draw [very thin,gray] (\xMin,\i) -- (\xMax,\i) node [left] at (\xMin,\i) {$\i$};
+%	}
+	
+	% master branch
+	\draw[line width=1.0pt] (1,7.5) circle (6mm);
+	\node[] at(1,7.5) {\textsf{C1}};
+	\draw[line width=2.0pt] (1.6,7.5) -- (2.4,7.5);
+	\draw[line width=1.0pt] (3,7.5) circle (6mm);
+	\node[] at(3,7.5) {\textsf{C2}};
+	\draw[line width=1.0pt] (5.0,7.5) circle (6mm);
+	\draw[line width=2.0pt] (3.6,7.5) -- (4.4,7.5);
+	\node[] at(5.0,7.5) {\textsf{C3}};
+	
+	% local branch
+	\draw[line width=1.0pt] (5.0,5.5) circle (6mm);
+	\node[] at(5.0,5.5) {\textsf{B1}};
+	\draw[line width=2.0pt] (5.6,5.5) -- (6.4,5.5);
+	\draw[line width=2.0pt] (3.0,6.9) -- (4.4,5.5);
+	\draw[line width=1.0pt] (7,5.5) circle (6mm);
+	\node[] at(7,5.5) {\textsf{B2}};
+	\draw[line width=1.0pt] (9.0,5.5) circle (6mm);
+	\draw[line width=2.0pt] (7.6,5.5) -- (8.4,5.5);
+	\node[] at(9.0,5.5) {\textsf{B3}};
+
+	% merge commit
+	\draw[line width=1.0pt,fill=pastelorange] (11.0,7.5) circle (6mm);
+	\node[] at(11.0,7.6) {{\scriptsize \textsf{merge}}};
+	\node[] at(11.0,7.4) {{\scriptsize \textsf{Commit}}};
+	\draw[line width=2.0pt] (5.6,7.5) -- (10.4,7.5);
+	\draw[line width=2.0pt] (9.6,5.5) -- (11.0,6.9);
+	
+	% head master pointer
+	\draw[-stealth,line width=2pt](11.0,5.8) -- (11.0,6.7);
+	\node[] at(11.0,5.6) {\textbf{{\footnotesize \textsf{master}}}};
+	\node[] at(11.0,5.3) {\textbf{{\footnotesize \textsf{HEAD}}}}; 
+	
+	
+\end{tikzpicture}
