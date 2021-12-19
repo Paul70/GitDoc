@@ -37,6 +37,37 @@ That's it! VS Code is now your overall git editor.
 \section{Submodules}
 \label{chapter:Miscellaneous.3}
 
+Briefly, you create a submodule in your main project when you add an additional library or some other file 
+bundles which already represent a Git project, \ac{IE} have their own \verb|.git|-repository.
+\\
+Using submodules is most of the time straight forward. The official Git manual page is a good starting point 
+to get the most important information, see \cite{Unknown2021Git-Tools-Submodule}.
+
+At this point I just want to emphasize two things. The first one is, always initialize a newly added submodule
+and and especially do this recursively if the submodule contains other submoduels itself:
+\begin{lstlisting}
+	$\dollar$ git submodule update --init
+\end{lstlisting}  
+or
+\begin{lstlisting}
+	$\dollar$ git submodule update --init --recursive
+\end{lstlisting}
+Omitting this step results in an empty submodule directory the next time your project gets cloned and the 
+cloning operation delivers an error message, that it can not find one or more commits.
+
+The second point is removing a submodule completely from your project which requires a few steps to go.
+
+\usrStory{I want to remove the submodule library called "lib" completely from my project}
+\begin{lstlisting}
+	$\dollar$ git submodule deinit lib # deinitialize the submodule
+	$\dollar$ git rm --cached demolibapp -r # remove from git
+	$\dollar$ rm -rf .git/modules/lib	# delete the git-modules entry
+	$\dollar$ git add --all
+	$\dollar$ git commit -m "removing extra submodules"
+	$\dollar$ git push
+	$\dollar$ rm -rf lib # remove everything from the filesystem	
+\end{lstlisting}
+
 
 
 \section{The Benefits of having the Staging Area}
