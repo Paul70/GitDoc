@@ -17,6 +17,17 @@
 
 
 % ----------------------------------------------------------------------------------------------------------------------
+% Set Arial like font
+
+% Loading the package helvet here is neccessary since loading the package anyway in the package.tex file
+% would alter the default Romant serif font. 
+% ----------------------------------------------------------------------------------------------------------------------
+\ifisArial											
+	\usepackage{helvet}	
+	\renewcommand{\familydefault}{\sfdefault}
+\fi
+
+% ----------------------------------------------------------------------------------------------------------------------
 % Set page dimensions, see also geometry-package documentation (online)
 %
 % Here, we set the margins between the total text body and the paper edges for onesieded style!
