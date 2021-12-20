@@ -1,0 +1,16 @@
+# tex auxilary files
+*.bbl
+*.aux
+*.auxlock
+*.bcf
+*.blg
+*.lof
+*.log
+*.lot
+*.out
+*.run*
+*.gz
+*.toc
+
+# Externalize tikz pictures
+externalize*
