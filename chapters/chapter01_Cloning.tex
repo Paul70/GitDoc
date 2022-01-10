@@ -167,9 +167,10 @@ address provided by the GitHub page:
 
 \begin{lstlisting}
 	$\dollar$ git remote -v
-	$\dollar$ git remote add <Name_of_your_local_Project> <URL/SSH from GitHub>
+	$\dollar$ git remote add origin <URL/SSH from GitHub>
 	$\dollar$ git remote -v  //to see if the new remote location is listed
 \end{lstlisting}
+It is common practice to simply call the remote repository "origin" but you can also choose an arbitrary other name, say the project's name for example.
 
 Finally, set the upstream branch. That is, tell your local git repository the name of the remote one (see the second item when creating a remote GitHub project) and the 
 commit-branch to which you want to push back new commits. In General, this branch is called master or main (by default):
@@ -219,11 +220,11 @@ Then create a \textbf{bare} git remote repository (\ac{IE} a repository without 
 Afterwards follow the steps already described in \cref{chapter:1.3.1}:
 \begin{lstlisting}
 	$\dollar$ git remote -v
-	$\dollar$ git remote add <Name_of_your_local_Project> <Path_to_remotre_repo/URL_to_server>
+	$\dollar$ git remote add origin <Path_to_remotre_repo/URL_to_server>
 	$\dollar$ git remote -v
-	$\dollar$ git --set-upstream <Remote_Repo_Name> <master/other_branch_name>
+	$\dollar$ git push --set-upstream <Remote_Repo_Name> <master/other_branch_name>
 \end{lstlisting}
-That's it, now you can push, pull or clone.
+That's it, now you can push, pull or clone. Again, "origin" is the default name for the remote repository but if you prefer another name just replace "origin".
 
 
 \section{SSH (Secure Shell) Keys}

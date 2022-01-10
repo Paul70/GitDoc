@@ -1,0 +1,75 @@
+\newcommand*{\xMin}{0}
+\newcommand*{\xMax}{14}
+\newcommand*{\yMin}{0}
+\newcommand*{\yMax}{9}
+
+\begin{tikzpicture}
+%	 %grid
+%	\foreach \i in {\xMin,...,\xMax} {
+%		\draw [very thin,gray] (\i,\yMin) -- (\i,\yMax)  node [below] at (\i,\yMin) {$\i$};
+%	}
+%	\foreach \i in {\yMin,...,\yMax} {
+%		\draw [very thin,gray] (\xMin,\i) -- (\xMax,\i) node [left] at (\xMin,\i) {$\i$};
+%	}
+	
+	% master branch (brach C)
+	\draw[line width=1.0pt] (1,5.5) circle (6mm);
+	\node[] at(1,5.5) {\textsf{C1}};
+	\draw[line width=2.0pt] (1.6,5.5) -- (2.4,5.5);
+	\draw[line width=1.0pt] (3,5.5) circle (6mm);
+	\node[] at(3,5.5) {\textsf{C2}};
+	\draw[line width=1.0pt] (5.0,5.5) circle (6mm);
+	\draw[line width=2.0pt] (3.6,5.5) -- (4.4,5.5);
+	\node[] at(5.0,5.5) {\textsf{C3}};
+	\draw[line width=2.0pt] (5.6,5.5) -- (6.4,5.5);
+	\draw[line width=1.0pt] (7,5.5) circle (6mm);
+	\draw[line width=2.0pt] (7.6,5.5) -- (8.4,5.5);
+	\node[] at(7,5.5) {\textsf{C4}};
+	\draw[line width=1.0pt] (9.0,5.5) circle (6mm);
+	\node[] at(9.0,5.5) {\textsf{C5}};
+	
+	% head master pointer
+	\draw[stealth-,line width=2pt](10.0,5.5) -- (11.0,5.5);
+	\node[] at(11.6,5.5) {\textbf{{\footnotesize \textsf{master}}}};
+	
+	% branch A
+	\draw[line width=2.0pt] (5.0,6.1) -- (6.4,7.5);
+	\draw[line width=1.0pt] (7.0,7.5) circle (6mm);
+	\node[] at(7.0,7.5) {\textsf{A1}};
+	\draw[line width=2.0pt] (7.6,7.5) -- (8.4,7.5);
+	\draw[line width=1.0pt] (9.0,7.5) circle (6mm);
+	\node[] at(9.0,7.5) {\textsf{A2}};
+	\draw[line width=2.0pt] (9.6,7.5) -- (10.4,7.5);
+	\draw[line width=1.0pt] (11.0,7.5) circle (6mm);
+	\node[] at(11.0,7.5) {\textsf{A3}};
+	
+	% new commit
+	\draw[line width=1.0pt,fill=pastelorange] (13.0,7.5) circle (6mm);
+	\draw[line width=2.0pt] (11.6,7.5) -- (12.4,7.5);
+	\node[] at(13.0,7.5) {\textsf{A4}};
+	\node[] at(13.0,6.7) {\textsf{{\scriptsize intermediate}}};
+	\node[] at(13.0,6.45) {\textsf{{\scriptsize commit}}};
+	
+	% branch B
+	\draw[line width=1.0pt] (5.0,3.5) circle (6mm);
+	\node[] at(5.0,3.5) {\textsf{B1}};
+	\draw[line width=2.0pt] (5.6,3.5) -- (6.4,3.5);
+	\draw[line width=2.0pt] (3.0,4.9) -- (4.4,3.5);
+	\draw[line width=1.0pt] (7,3.5) circle (6mm);
+	\node[] at(7,3.5) {\textsf{B2}};
+	\draw[line width=1.0pt,fill=pastelorange] (9.0,3.5) circle (6mm);
+	\draw[line width=2.0pt] (7.6,3.5) -- (8.4,3.5);
+	\node[] at(9.0,3.5) {\textsf{B3}};
+	\node[] at(9.0,2.7) {\textsf{{\scriptsize bug fix}}};
+	\node[] at(9.0,2.45) {\textsf{{\scriptsize commit}}};
+	
+	\draw[stealth-,line width=2pt](10.0,3.5) -- (11.0,3.5);
+	\node[] at(11.6,3.5) {\textbf{{\footnotesize \textsf{HEAD}}}};
+
+	% move back dashed arrow	
+	\draw[dashed,line width=1pt](12.2,3.5) -- (13.0,3.5);
+	\draw[dashed,-stealth,line width=1pt](13.0,3.5) -- (13.0,6.1);
+	\node[] at(13.5,4.5) {{{\scriptsize \textsf{move}}}};
+	\node[] at(13.5,4.3) {{{\scriptsize \textsf{back}}}};
+	
+\end{tikzpicture}
