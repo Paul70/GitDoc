@@ -153,6 +153,56 @@ The second point is removing a submodule completely from your project which requ
 
 
 
+\section{Fetch, Pull and Rebase}
+\label{chapter:Miscellaneous.4}
+
+Git \verb*|fetch| command is used frequently by almost all Git users, however, not all users are always aware that they 
+are using it. The reason is, that Git \verb*|pull| is actually a sequence of two other Git commands, Git \verb*|fetch|
+first and Git \verb*|merge| second:
+
+\hspace{2cm} \verb*|pull| = \verb*|fetch| + \verb*|merge|.
+
+Let's have a closer look at what really happens when you pull new content from your remote repository. As stated above, 
+a \verb*|pull| request consists of a \verb*|fetch| command in the first step. Fetching new commits means
+\begin{itemize}
+	\item downloading new commits from your remote.
+	\item creating a new remote tracking branch consisting of these new commits rooted at the currently checked out 
+	      commit (or the commit which is refereced by the HEAD pointer). This remote tracking branch is named 
+	      \verb*|<remote_repo>/<remote_branch_name>|, e.g.\\ 
+	      \verb*|origin/master| if you fetch new content from you remote
+	      master/main branch.
+\end{itemize} 
+There are several ways to see this newly created remote tracking branch after a \verb*|fetch| command:
+\begin{itemize}
+	\item fetch new content verbously\\
+	\begin{lstlisting}
+		- $\dollar$ git fetch --verbose 
+	\end{lstlisting}
+	\item 
+\end{itemize} 
+\begin{lstlisting}
+	- $\dollar$ git  
+\end{lstlisting}
+In a second step, this new branch is merged into the currently ckecked out branch. That's why you have to write a 
+merge commit (message) when you pull from remote.
+Maybe you are a little bit confused right now because you have done a lot of Git \verb*|pull| commands and never wrote 
+a merge commit message nor does such a message exist in your Git log. The reason is, that you actually never did a pure 
+Git \verb*|pull|, i.e. fetching and merging new commits. Probably, your Git \verb*|pull| command is modified slightly. 
+This often happens, since merge commit meassages of remote tracking branches mess and blow up your git log. So people like
+to modify their Git \verb*|pull| command to omit such messages by default (a lot of graphical Git clients modify Git in this way). 
+The modification is, that Git by default does not execute a clean \verb*|pull| = \verb*|fetch|+\verb*|merge|. Instead, Git fetches new
+commits and rebases them. In other words, Git does not merge the remote tracking branch created by fetch, it rebased it.
+See the following example:
+
+
+\begin{lstlisting}
+	$\dollar$ git fetch <remote_repo_name> <local_branch_name> --verbose 
+\end{lstlisting}
+\begin{lstlisting}
+	$\dollar$ git fetch origin master/main --verbose 
+\end{lstlisting}
+
+
 %\section{The Benefits of having the Staging Area}
 %\label{chapter:Miscellaneous.4}
 
